@@ -1,0 +1,1 @@
+-- insert into clients (id, field) values(nextval('hibernate_sequence'), 'field-3');

@@ -1,0 +1,876 @@
+{
+	"info": {
+		"_postman_id": "b1846e22-a307-4aec-8e81-6f6661ffa233",
+		"name": "BOOTCAMP QUARKUS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7929714"
+	},
+	"item": [
+		{
+			"name": "MS-QK-BANK-ACCOUNT",
+			"item": [
+				{
+					"name": "buscarCuentasBancarias",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1113/api/bank-account",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1113",
+							"path": [
+								"api",
+								"bank-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarCuentaBancariaXId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:1113/api/bank-account/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1113",
+							"path": [
+								"api",
+								"bank-account",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarCuentaBancaria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numberAccount\": \"23246354647\",\r\n    \"openingDate\": \"2023-02-13\",\r\n    \"description\": \"Cuenta de ahorros\",\r\n    \"amount\": 10000,\r\n    \"mainAccount\": \"0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1113/api/bank-account",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1113",
+							"path": [
+								"api",
+								"bank-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarCuentaBancariaXId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1113/api/bank-account/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1113",
+							"path": [
+								"api",
+								"bank-account",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarCuentaBancaria",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"numberAccount\": \"23246354555\",\r\n        \"openingDate\": \"2023-02-09\",\r\n        \"description\": \"Cuenta de ahorros\",\r\n        \"amount\": 10100,\r\n        \"mainAccount\": \"0\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1113/api/bank-account/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1113",
+							"path": [
+								"api",
+								"bank-account",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarMainAccount",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1113/api/bank-account/updateMainAccount/1/mainAccount/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1113",
+							"path": [
+								"api",
+								"bank-account",
+								"updateMainAccount",
+								"1",
+								"mainAccount",
+								"0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MS-QK-CLIENT",
+			"item": [
+				{
+					"name": "buscar clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1112/api/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1112",
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar cliente por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1112/api/clients/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1112",
+							"path": [
+								"api",
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarCliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"personType\": \"NATURAL\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": \"71629568\",\r\n    \"completeName\": \"Roy Adoniss\",\r\n    \"surnames\": \"Carrasco Huamana\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"carrasco@gmail.com\",\r\n    \"cellPhone\": \"986794668\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1112/api/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1112",
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar cliente por id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1112/api/clients/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1112",
+							"path": [
+								"api",
+								"clients",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarCliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"personType\": \"NATURAL\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": \"71629569\",\r\n    \"completeName\": \"Adonis Roy\",\r\n    \"surnames\": \"Huaman Carrasco\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"carrasco28adonis12@gmail.com\",\r\n    \"cellPhone\": \"986794668\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1112/api/clients/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1112",
+							"path": [
+								"api",
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MS-QK-DEBIT-CARD",
+			"item": [
+				{
+					"name": "buscarTarjetasDebito",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1111/api/debit-card",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1111",
+							"path": [
+								"api",
+								"debit-card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarTarjetaDebitoXId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1111/api/debit-card/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1111",
+							"path": [
+								"api",
+								"debit-card",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarTarjetaDebito",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"debitCardNumber\":\"2133252414234327\",\r\n   \"pin\":1111,\r\n   \"expirationDate\":\"2028-02-09T00:00:00.000+00:00\",\r\n   \"validationCode\":\"124574\",\r\n   \"bankAccount\":{\r\n      \"idBankAccount\":1\r\n   },\r\n   \"client\":{\r\n      \"idClient\":1\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1111/api/debit-card",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1111",
+							"path": [
+								"api",
+								"debit-card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarTarjetaDebitoXId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1111/api/debit-card/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1111",
+							"path": [
+								"api",
+								"debit-card",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarTarjetaDebito",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"debitCardNumber\": \"111111111111111111\",\r\n    \"pin\": 1111,\r\n    \"expirationDate\": \"2028-02-09\",\r\n    \"validationCode\": \"121111\",\r\n    \"bankAccount\":{\r\n      \"idBankAccount\":1\r\n   },\r\n   \"client\":{\r\n      \"idClient\":1\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1111/api/debit-card/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1111",
+							"path": [
+								"api",
+								"debit-card",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MS-QK-LOAN",
+			"item": [
+				{
+					"name": "listarLoan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/api/loan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"loan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarLoanXId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/api/loan/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"loan",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarLoan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"loanNumber\": \"1112\",\r\n    \"monthlyPaymentDate\": \"3333\",\r\n    \"expirationDate\": \"12-03-2014\",\r\n    \"quotaNumber\": 12,\r\n    \"validationCode\": \"3\",\r\n    \"initialBalance\": 2.2,\r\n    \"currentBalance\": 12.2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8085/api/loan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"loan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarLoan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/api/loan/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"loan",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarLoan",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"loanNumber\": \"222\",\r\n    \"monthlyPaymentDate\": \"3\",\r\n    \"expirationDate\": \"12-03-2014\",\r\n    \"quotaNumber\": 2,\r\n    \"validationCode\": \"2\",\r\n    \"initialBalance\": 22.2,\r\n    \"currentBalance\": 22.2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8085/api/loan/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"loan",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MS-QK-MOVEMENT",
+			"item": [
+				{
+					"name": "listarMovement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/movements",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarMovementXId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/movements/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movements",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registrarMovementConsumoCreditCard",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTypeMovement\": 2,\r\n    \"descriptionMovement\": \"Consumo\",\r\n    \"dateMovement\": \"09-02-2023\",\r\n    \"totalMovement\": 50.00,\r\n    \"estateDelete\" : 1,\r\n    \"creditCard\":{\r\n        \"idCreditCard\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/movements",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarCreditCard",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/movements/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movements",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarCreditCard",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTypeMovement\": 3,\r\n    \"descriptionMovement\": \"Consumo\",\r\n    \"dateMovement\": \"09-02-2023\",\r\n    \"totalMovement\": 80.0,\r\n    \"estateDelete\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/movements/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movements",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registrarMovementPagoCrediCard",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTypeMovement\": 2,\r\n    \"descriptionMovement\": \"Pago\",\r\n    \"dateMovement\": \"09-02-2023\",\r\n    \"totalMovement\": 50.00,\r\n    \"estateDelete\" : 1,\r\n    \"creditCard\":{\r\n        \"idCreditCard\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/movements",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movements"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MS-QK-CREDITCARD",
+			"item": [
+				{
+					"name": "listarCreditCard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/api/creditcard",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"creditcard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarCrediCardXId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8084/api/creditcard/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"creditcard",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarCreditCard",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descripcion\": \"Tarjeta Credito\",\r\n    \"creditLimit\": 5000.0,\r\n    \"balanceAvailable\": 5000,\r\n    \"creditCardNumber\": \"4213550076842888\",\r\n    \"cvv\": 666,\r\n    \"expirationDate\": \"22-08-2026\",\r\n    \"closingDate\": \"10\",\r\n    \"lastOfPay\": \"05\",\r\n    \"client\":{\r\n        \"idClient\":1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8084/api/creditcard",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"creditcard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarCreditCard",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descripcion\": \"Tarjeta Debito\",\r\n    \"creditLimit\": 9000.0,\r\n    \"creditCardNumber\": \"4213550076842999\",\r\n    \"cvv\": 559,\r\n    \"expirationDate\": \"22-08-2029\",\r\n    \"closingDate\": \"10\",\r\n    \"lastOfPay\": \"05\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8084/api/creditcard/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"creditcard",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarCreditCard",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8084/api/creditcard/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"creditcard",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
