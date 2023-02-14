@@ -4,9 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import nttdata.bootcamp.quarkus.client.entity.Client;
 import nttdata.bootcamp.quarkus.client.repository.ClientRepository;
-
 import java.util.List;
 
+//@Liveness //implements AsyncHealthCheck
 @ApplicationScoped
 public class ClientServiceImpl implements ClientService {
     @Inject
@@ -37,5 +37,11 @@ public class ClientServiceImpl implements ClientService {
     public void delete(Long id) {
         clientRepository.deleteById(id);
     }
+
+    /*@Override
+    public Uni<HealthCheckResponse> call() {
+        return Uni.createFrom().item(HealthCheckResponse.up("liveness-reactive"))
+                .onItem().delayIt().by(Duration.ofMillis(10));
+    }*/
 
 }
