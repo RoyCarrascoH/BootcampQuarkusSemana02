@@ -38,4 +38,5 @@ public class MovementServiceImpl implements MovementService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
 }

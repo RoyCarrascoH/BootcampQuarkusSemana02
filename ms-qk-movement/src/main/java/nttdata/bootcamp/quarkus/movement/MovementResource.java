@@ -90,7 +90,7 @@ public class MovementResource {
         } else {
             response.setCodigoRespuesta(0);
             response.setMensajeRespuesta("Eliminacion exitosa de movement id = " + idMovement);
-            service.delete(entity.getIdMovement());
+            MovementEntity.update("estateDelete", 1);
         }
 
         return response;
