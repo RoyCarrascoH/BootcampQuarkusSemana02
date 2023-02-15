@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,7 +26,7 @@ public class CreditCardEntity {
     private double balanceAvailable;
     private String creditCardNumber;
     private int cvv;
-    private String expirationDate;
+    private LocalDate expirationDate;
     private String closingDate;
     private String lastOfPay;
 
