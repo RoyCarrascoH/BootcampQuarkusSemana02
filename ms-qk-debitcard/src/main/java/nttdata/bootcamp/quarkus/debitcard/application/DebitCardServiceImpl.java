@@ -47,12 +47,18 @@ public class DebitCardServiceImpl implements DebitCardService {
 		DateTimeFormatter current = DateTimeFormatter.ofPattern("ddMMyyyy");
 		DateTimeFormatter wanted = DateTimeFormatter.ofPattern("yyyy-dd-MM");
 		LocalDate expirationDateFormat=LocalDate.parse(wanted.format(current.parse(expirationDate)));
-		DebitCard db1=DebitCard.find("debitCardNumber = ?1  and validationCode = ?2 and status=true", debitCardNumber, validationCode).firstResult();
-		if(db1!=null) {
-			return db1.getExpirationDate().equals(expirationDateFormat);	
+		DebitCard debitCardResult=DebitCard.find("debitCardNumber = ?1 and validationCode = ?2 and status=true", debitCardNumber, validationCode).firstResult();
+		if(debitCardResult!=null) {
+			return debitCardResult.getExpirationDate().equals(expirationDateFormat);	
 		}
 		return false;
 		
+	}
+
+	@Override
+	public boolean validateDebitCardAndClientData(String debitCardNumber, String documentType, String documentNumber) {
+		DebitCard debitCardResult = DebitCard.find("debitCardNumber = ?1 and client.documentType = ?2 and client.documentNumber = ?3", debitCardNumber, documentType, documentNumber).firstResult();
+		return debitCardResult!=null?debitCardResult.count()>0:false;
 	}
 
 }

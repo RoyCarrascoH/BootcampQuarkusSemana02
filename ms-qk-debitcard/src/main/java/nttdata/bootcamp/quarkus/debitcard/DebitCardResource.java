@@ -126,5 +126,20 @@ public class DebitCardResource {
         }
         return Response.ok(validationStatus).status(200).build();
     }
+    
+    @GET
+    @Path("/validateclient/{debitCardNumber}/{documentType}/{documentNumber}")
+    public Response validateDebitCardAndClientData(@PathParam("debitCardNumber") String debitCardNumber,@PathParam("documentType") String documentType, @PathParam("documentNumber") String documentNumber) {
+    	boolean validationStatus = false; 
+        if(debitCardNumber!=null && documentType!=null && documentNumber!=null){
+            try{
+            	validationStatus= service.validateDebitCardAndClientData(debitCardNumber, documentType, documentNumber);
+            }catch (BadRequestException e){
+                LOGGER.infof("Error al invocar  el Microservicio bank-account" + e.getMessage());
+            }
+
+        }
+        return Response.ok(validationStatus).status(200).build();
+    }
 
 }

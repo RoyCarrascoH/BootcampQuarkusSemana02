@@ -18,4 +18,6 @@ public interface DebitCardService
     public void delete(Long idDebitCard);
     
     public boolean validateDataAndStatusDebitCard(String debitCardNumber, String expirationDate, String validationCode);
+    
+    public boolean validateDebitCardAndClientData(String debitCardNumber, String documentType, String documentNumber);
 }
