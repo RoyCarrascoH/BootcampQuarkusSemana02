@@ -4,6 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import nttdata.bootcamp.quarkus.debitcard.entity.DebitCard;
 import nttdata.bootcamp.quarkus.debitcard.repository.DebitCardRepository;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @ApplicationScoped
@@ -23,6 +26,7 @@ public class DebitCardServiceImpl implements DebitCardService {
 
     @Override
     public void save(DebitCard debitCard) {
+    	debitCard.setStatus(true);
         debitCardRepository.persist(debitCard);
     }
 
@@ -36,5 +40,19 @@ public class DebitCardServiceImpl implements DebitCardService {
     public void delete(Long idDebitCard) {
         debitCardRepository.deleteById(idDebitCard);
     }
+
+	@Override
+	public boolean validateDataAndStatusDebitCard(String debitCardNumber, String expirationDate,
+			String validationCode) {
+		DateTimeFormatter current = DateTimeFormatter.ofPattern("ddMMyyyy");
+		DateTimeFormatter wanted = DateTimeFormatter.ofPattern("yyyy-dd-MM");
+		LocalDate expirationDateFormat=LocalDate.parse(wanted.format(current.parse(expirationDate)));
+		DebitCard db1=DebitCard.find("debitCardNumber = ?1  and validationCode = ?2 and status=true", debitCardNumber, validationCode).firstResult();
+		if(db1!=null) {
+			return db1.getExpirationDate().equals(expirationDateFormat);	
+		}
+		return false;
+		
+	}
 
 }

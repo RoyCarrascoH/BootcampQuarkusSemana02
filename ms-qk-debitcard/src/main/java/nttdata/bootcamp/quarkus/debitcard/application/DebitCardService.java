@@ -1,6 +1,7 @@
 package nttdata.bootcamp.quarkus.debitcard.application;
 
 import nttdata.bootcamp.quarkus.debitcard.entity.DebitCard;
+
 import java.util.List;
 
 public interface DebitCardService
@@ -15,4 +16,6 @@ public interface DebitCardService
     public DebitCard update(Long idDebitCard, DebitCard debitCard);
 
     public void delete(Long idDebitCard);
+    
+    public boolean validateDataAndStatusDebitCard(String debitCardNumber, String expirationDate, String validationCode);
 }

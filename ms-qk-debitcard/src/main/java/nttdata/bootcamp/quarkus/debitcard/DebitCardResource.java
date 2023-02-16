@@ -8,7 +8,6 @@ import jakarta.ws.rs.core.Response;
 import nttdata.bootcamp.quarkus.debitcard.application.DebitCardService;
 import nttdata.bootcamp.quarkus.debitcard.dto.DebitCardResponse;
 import nttdata.bootcamp.quarkus.debitcard.dto.ResponseBase;
-import nttdata.bootcamp.quarkus.debitcard.entity.BankAccount;
 import nttdata.bootcamp.quarkus.debitcard.entity.DebitCard;
 import nttdata.bootcamp.quarkus.debitcard.proxy.BankAccountApi;
 import nttdata.bootcamp.quarkus.debitcard.util.Utilitarios;
@@ -112,6 +111,20 @@ public class DebitCardResource {
         return response;
     }
 
+    
+    @GET
+    @Path("/validate/{debitCardNumber}/{expirationDate}/{validationCode}")
+    public Response validateDataAndStatusDebitCard(@PathParam("debitCardNumber") String debitCardNumber,@PathParam("expirationDate") String expirationDate,@PathParam("validationCode") String validationCode) {
+    	boolean validationStatus = false; 
+        if(debitCardNumber!=null && expirationDate!=null && validationCode!=null){
+            try{
+            	validationStatus= service.validateDataAndStatusDebitCard(debitCardNumber, expirationDate, validationCode);
+            }catch (BadRequestException e){
+                LOGGER.infof("Error al invocar  el Microservicio bank-account" + e.getMessage());
+            }
 
+        }
+        return Response.ok(validationStatus).status(200).build();
+    }
 
 }

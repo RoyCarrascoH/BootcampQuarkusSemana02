@@ -13,8 +13,9 @@ import nttdata.bootcamp.quarkus.debitcard.entity.DebitCard;
 import nttdata.bootcamp.quarkus.debitcard.repository.DebitCardRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,7 +64,7 @@ public class DebitCardResourceTest {
     @Test
     public void testFindADebitCardExist() {
         List<DebitCard> debitCards = new ArrayList<>();
-        DebitCard debitCard = new DebitCard(Long.valueOf("1"), "123", 1234, new Date(), "123", new BankAccount(), new Client());
+        DebitCard debitCard = new DebitCard(Long.valueOf("1"), "123", 1234, LocalDate.now(), "123", new BankAccount(), new Client(), true);
         debitCards.add(debitCard);
         Mockito.when(service.findById(debitCards.get(0).getIdDebitCard())).thenReturn(debitCard);
         Mockito.when(debitCardRepository.findById(debitCards.get(0).getIdDebitCard())).thenReturn(debitCard);
@@ -82,7 +83,7 @@ public class DebitCardResourceTest {
     @Transactional
     public void testDeleteDebitCardNoExist() {
         List<DebitCard> DebitCards = new ArrayList<>();
-        DebitCard debitCard = new DebitCard(Long.valueOf("1"), "123", 1234, new Date(), "123", new BankAccount(), new Client());
+        DebitCard debitCard = new DebitCard(Long.valueOf("1"), "123", 1234, LocalDate.now(), "123", new BankAccount(), new Client(), true);
         DebitCards.add(debitCard);
         Mockito.when(service.findById(DebitCards.get(0).getIdDebitCard())).thenReturn(debitCard);
         Mockito.when(debitCardRepository.findById(DebitCards.get(0).getIdDebitCard())).thenReturn(debitCard);
