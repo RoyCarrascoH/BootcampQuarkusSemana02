@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @QuarkusTest
 public class ExampleResourceTest {
     @Inject
-    ExampleResource loanResource;
+    LoanResource loanResource;
     @InjectMock
     LoanService service;
     @InjectMock

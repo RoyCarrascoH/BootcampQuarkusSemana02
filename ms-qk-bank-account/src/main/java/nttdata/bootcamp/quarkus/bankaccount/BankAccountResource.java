@@ -117,7 +117,7 @@ public class BankAccountResource {
 
     @GET
     @Path("/numberBankAccount/{numberBankAccount}")
-    public BankAccount viewCurrentBalanceByNumberBankAccount(@PathParam("numberBankAccount") String numberBankAccount){
+    public BankAccount viewBankAccountDetailsNumberBankAccount(@PathParam("numberBankAccount") String numberBankAccount){
         BankAccount entity = service.findByNumberBankAccount(numberBankAccount);
         if (entity == null) {
             throw new WebApplicationException("BankAccount with " + numberBankAccount + " does not exist.", 404);

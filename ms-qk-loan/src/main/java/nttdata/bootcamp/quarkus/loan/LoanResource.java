@@ -16,9 +16,9 @@ import java.util.List;
 @Path("/api/loan")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ExampleResource {
+public class LoanResource {
 
-    private static final Logger LOGGER = Logger.getLogger(ExampleResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(LoanResource.class.getName());
 
     @Inject
     private LoanService loanService;
@@ -82,7 +82,7 @@ public class ExampleResource {
     @PUT
     @Path("{idLoan}")
     @Transactional
-    public LoanEntity updateClient(@PathParam("idLoan") Long idLoan, LoanEntity loan) {
+    public LoanEntity updateLoan(@PathParam("idLoan") Long idLoan, LoanEntity loan) {
 
         LoanEntity entity = loanService.findById(idLoan);
         if (entity == null) {

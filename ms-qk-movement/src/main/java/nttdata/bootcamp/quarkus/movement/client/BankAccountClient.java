@@ -14,5 +14,11 @@ public interface BankAccountClient {
 
     @GET
     @Path("/numberBankAccount/{numberBankAccount}")
-    BankAccount viewCurrentBalanceByNumberBankAccount(@PathParam("numberBankAccount") String numberBankAccount);
+    public BankAccount viewBankAccountDetailsNumberBankAccount(@PathParam("numberBankAccount") String numberBankAccount);
+
+    @PUT
+    @Path("{idBankAccount}")
+    @Transactional
+    public BankAccount updateBankAccount(@PathParam("idBankAccount") Long idBankAccount, BankAccount bankAccount);
+
 }

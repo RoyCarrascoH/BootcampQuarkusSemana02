@@ -7,12 +7,11 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import nttdata.bootcamp.quarkus.movement.client.BankAccountClient;
 import nttdata.bootcamp.quarkus.movement.client.CreditCardClient;
+import nttdata.bootcamp.quarkus.movement.client.LoanClient;
 import nttdata.bootcamp.quarkus.movement.dto.MovementResponse;
 import nttdata.bootcamp.quarkus.movement.dto.MovementsByAccountNumber;
 import nttdata.bootcamp.quarkus.movement.dto.ResponseBase;
-import nttdata.bootcamp.quarkus.movement.entity.BankAccount;
-import nttdata.bootcamp.quarkus.movement.entity.CreditCardEntity;
-import nttdata.bootcamp.quarkus.movement.entity.MovementEntity;
+import nttdata.bootcamp.quarkus.movement.entity.*;
 import nttdata.bootcamp.quarkus.movement.service.MovementService;
 import nttdata.bootcamp.quarkus.movement.util.Utility;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -30,6 +29,9 @@ public class MovementResource {
 
     @RestClient
     CreditCardClient creditCardClient;
+
+    @RestClient
+    LoanClient loanClient;
 
     @RestClient
     BankAccountClient bankAccountClient;
@@ -68,16 +70,31 @@ public class MovementResource {
     @Transactional
     public Response create(MovementEntity movement) {
 
-        if (movement.getIdTypeMovement() == 3) {
+        if (movement.getIdTypeMovement() == 1) {//Loan --> 1.- Pago de prestamo
+            LoanEntity entity = loanClient.viewLoanDetails(movement.getLoan().getIdLoan());
+            Double total = entity.getCurrentBalance() - movement.getTotalMovement();
+            entity.setCurrentBalance(total);
+            loanClient.updateLoan(entity.getIdLoan(), entity);
+        } else if (movement.getIdTypeMovement() == 2) {// CreditCard --> 2.- Pago tarjeta de credito
             CreditCardEntity entity = creditCardClient.viewCreditCardDetails(movement.getCreditCard().getIdCreditCard());
-            double total = entity.getBalanceAvailable() - movement.getTotalMovement();
+            Double total = entity.getBalanceAvailable() + movement.getTotalMovement();
             entity.setBalanceAvailable(total);
             creditCardClient.updateCreditCard(entity.getIdCreditCard(), entity);
-        } else if (movement.getIdTypeMovement() == 2) {
+        } else if (movement.getIdTypeMovement() == 3) {// CreditCard --> 3.- Consumo
             CreditCardEntity entity = creditCardClient.viewCreditCardDetails(movement.getCreditCard().getIdCreditCard());
-            double total = entity.getBalanceAvailable() + movement.getTotalMovement();
+            Double total = entity.getBalanceAvailable() - movement.getTotalMovement();
             entity.setBalanceAvailable(total);
             creditCardClient.updateCreditCard(entity.getIdCreditCard(), entity);
+        } else if (movement.getIdTypeMovement() == 4) {// DebitCard --> 4.- Retiro
+            BankAccount entity = bankAccountClient.viewBankAccountDetailsNumberBankAccount(movement.getBankAccountNumber());
+            Double total = entity.getAmount() - movement.getTotalMovement();
+            entity.setAmount(total);
+            bankAccountClient.updateBankAccount(entity.getIdBankAccount(), entity);
+        } else if (movement.getIdTypeMovement() == 5) {// DebitCard --> 5.- Deposito
+            BankAccount entity = bankAccountClient.viewBankAccountDetailsNumberBankAccount(movement.getBankAccountNumber());
+            Double total = entity.getAmount() + movement.getTotalMovement();
+            entity.setAmount(total);
+            bankAccountClient.updateBankAccount(entity.getIdBankAccount(), entity);
         }
 
         service.save(movement);
@@ -130,7 +147,7 @@ public class MovementResource {
     public MovementsByAccountNumber findMovementsByAccountNumber(@PathParam("bankAccountNumber") String bankAccountNumber) {
         MovementsByAccountNumber response = new MovementsByAccountNumber();
 
-        BankAccount bankAccount = bankAccountClient.viewCurrentBalanceByNumberBankAccount(bankAccountNumber);
+        BankAccount bankAccount = bankAccountClient.viewBankAccountDetailsNumberBankAccount(bankAccountNumber);
         //BankAccount bankAccount = service.findCurrentBalance(bankAccountNumber);
         if (bankAccount == null) {
             throw new WebApplicationException("bankAccountNumber : " + bankAccountNumber + " does not exist Movements.", 404);
