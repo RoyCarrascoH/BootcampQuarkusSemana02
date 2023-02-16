@@ -22,4 +22,6 @@ public interface DebitCardService
     public boolean validateDebitCardAndClientData(String debitCardNumber, String documentType, String documentNumber);
     
     public boolean validatDebitCardAndPin(String debitCardNumber, String pin);
+    
+    public List<DebitCard> searchDebitCardByClientDocumentNumber(String clientDocumentNumber);
 }

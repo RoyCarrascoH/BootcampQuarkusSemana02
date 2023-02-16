@@ -16,6 +16,7 @@ import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/api/debit-card")
@@ -155,6 +156,21 @@ public class DebitCardResource {
 
         }
         return Response.ok(validationStatus).status(200).build();
+    }
+    
+    @GET
+    @Path("/searchlist/{documentNumber}")
+    public Response searchListDebitCardByDocumentNumber(@PathParam("documentNumber") String documentNumber) {
+    	List<DebitCard> listResult = new ArrayList<>(); 
+        if(documentNumber!=null){
+            try{
+            	listResult = service.searchDebitCardByClientDocumentNumber(documentNumber);
+            }catch (BadRequestException e){
+                LOGGER.infof("Error al invocar el Microservicio bank-account" + e.getMessage());
+            }
+
+        }
+        return Response.ok(listResult).status(200).build();
     }
 
 }

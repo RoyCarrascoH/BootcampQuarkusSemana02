@@ -67,4 +67,9 @@ public class DebitCardServiceImpl implements DebitCardService {
 		return debitCardResult!=null?debitCardResult.count()>0:false;
 	}
 
+	@Override
+	public List<DebitCard> searchDebitCardByClientDocumentNumber(String clientDocumentNumber) {
+		return DebitCard.list("client.documentNumber", clientDocumentNumber);
+	}
+
 }
