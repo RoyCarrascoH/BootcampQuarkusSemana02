@@ -69,7 +69,8 @@ public class DebitCardResource {
     public Response createDebitCard(DebitCard debitCard) {
         if(debitCard.getBankAccount().getIdBankAccount()!=null){
             try {
-                bankAccountApi.updateMainAccount(debitCard.getBankAccount().getIdBankAccount(), "1");
+            	Long counter = DebitCard.count("debitCardNumber",debitCard.getDebitCardNumber());            	
+                bankAccountApi.updateMainAccount(debitCard.getBankAccount().getIdBankAccount(), counter>0?"1":"2");
             }catch (BadRequestException e){
                 LOGGER.infof("Error al invocar  el Microservicio bank-account" + e.getMessage());
             }
