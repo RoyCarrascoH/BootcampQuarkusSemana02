@@ -25,8 +25,8 @@ public class Utility {
     public static MovementsByAccountNumber uploadMovements(List<MovementEntity> entity, MovementsByAccountNumber response) {
 
         List<Movement> movements = new ArrayList<>();
-        Movement movement = new Movement();
         for (MovementEntity valor : entity) {
+            Movement movement = new Movement();
             movement.setMovementDate(valor.getDateMovement());
             movement.setMovementDescription(valor.getDescriptionMovement());
             movement.setAmount(valor.getTotalMovement());

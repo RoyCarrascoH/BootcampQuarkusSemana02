@@ -64,7 +64,7 @@ public class DebitCardResourceTest {
     @Test
     public void testFindADebitCardExist() {
         List<DebitCard> debitCards = new ArrayList<>();
-        DebitCard debitCard = new DebitCard(Long.valueOf("1"), "123", 1234, LocalDate.now(), "123", new BankAccount(), new Client(), true);
+        DebitCard debitCard = new DebitCard(Long.valueOf("1"), "123", 1234, LocalDate.now(), "123", true, new BankAccount(), new Client());
         debitCards.add(debitCard);
         Mockito.when(service.findById(debitCards.get(0).getIdDebitCard())).thenReturn(debitCard);
         Mockito.when(debitCardRepository.findById(debitCards.get(0).getIdDebitCard())).thenReturn(debitCard);
@@ -83,7 +83,7 @@ public class DebitCardResourceTest {
     @Transactional
     public void testDeleteDebitCardNoExist() {
         List<DebitCard> DebitCards = new ArrayList<>();
-        DebitCard debitCard = new DebitCard(Long.valueOf("1"), "123", 1234, LocalDate.now(), "123", new BankAccount(), new Client(), true);
+        DebitCard debitCard = new DebitCard(Long.valueOf("1"), "123", 1234, LocalDate.now(), "123", true, new BankAccount(), new Client());
         DebitCards.add(debitCard);
         Mockito.when(service.findById(DebitCards.get(0).getIdDebitCard())).thenReturn(debitCard);
         Mockito.when(debitCardRepository.findById(DebitCards.get(0).getIdDebitCard())).thenReturn(debitCard);

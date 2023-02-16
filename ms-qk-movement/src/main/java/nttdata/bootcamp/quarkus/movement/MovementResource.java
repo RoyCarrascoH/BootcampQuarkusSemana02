@@ -143,22 +143,32 @@ public class MovementResource {
     }
 
     @GET
-    @Path("{bankAccountNumber}")
+    @Path("/findMovementsByAccountNumber/{bankAccountNumber}")
     public MovementsByAccountNumber findMovementsByAccountNumber(@PathParam("bankAccountNumber") String bankAccountNumber) {
         MovementsByAccountNumber response = new MovementsByAccountNumber();
 
         BankAccount bankAccount = bankAccountClient.viewBankAccountDetailsNumberBankAccount(bankAccountNumber);
         //BankAccount bankAccount = service.findCurrentBalance(bankAccountNumber);
         if (bankAccount == null) {
+            response.setCodigoRespuesta(-1);
+            response.setMensajeRespuesta("Cuentas bancarias es nulo");
             throw new WebApplicationException("bankAccountNumber : " + bankAccountNumber + " does not exist Movements.", 404);
         }
         response = Utility.uploadBankAccount(bankAccount, response);
 
         List<MovementEntity> movements = service.findMovementsByAccountNumber(bankAccountNumber);
         if (movements == null) {
+            response.setCodigoRespuesta(-1);
+            response.setMensajeRespuesta("Consulta sin movimientos");
             throw new WebApplicationException("bankAccountNumber : " + bankAccountNumber + " does not exist in Movements.", 404);
+        } else if(movements.size() == 0){
+            response.setCodigoRespuesta(1);
+            response.setMensajeRespuesta("Consulta no tiene movimientos");
+            return response;
         }
         response = Utility.uploadMovements(movements, response);
+        response.setCodigoRespuesta(0);
+        response.setMensajeRespuesta("Consulta Exitosa");
 
         return response;
     }
