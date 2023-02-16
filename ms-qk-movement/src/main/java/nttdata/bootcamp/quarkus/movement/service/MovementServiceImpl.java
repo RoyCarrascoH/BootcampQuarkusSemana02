@@ -2,6 +2,7 @@ package nttdata.bootcamp.quarkus.movement.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import nttdata.bootcamp.quarkus.movement.entity.BankAccount;
 import nttdata.bootcamp.quarkus.movement.entity.MovementEntity;
 import nttdata.bootcamp.quarkus.movement.repository.MovementRepository;
 
@@ -37,6 +38,17 @@ public class MovementServiceImpl implements MovementService {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    /*@Override
+    public BankAccount findCurrentBalance(String bankAccountNumber) {
+        return BankAccount.find("debitCard.bankAccount.numberAccount", bankAccountNumber).firstResult();
+    }*/
+
+    @Override
+    public List<MovementEntity> findMovementsByAccountNumber(String bankAccountNumber) {
+        List<MovementEntity> response = MovementEntity.find("bankAccountNumber", bankAccountNumber).list();
+        return response;
     }
 
 }

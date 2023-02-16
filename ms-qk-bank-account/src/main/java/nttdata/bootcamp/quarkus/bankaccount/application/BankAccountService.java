@@ -1,6 +1,7 @@
 package nttdata.bootcamp.quarkus.bankaccount.application;
 
 import nttdata.bootcamp.quarkus.bankaccount.entity.BankAccount;
+
 import java.util.List;
 
 public interface BankAccountService {
@@ -15,4 +16,5 @@ public interface BankAccountService {
 
     public void delete(Long idBankAccount);
 
+    public BankAccount findByNumberBankAccount(String numberBankAccount);
 }

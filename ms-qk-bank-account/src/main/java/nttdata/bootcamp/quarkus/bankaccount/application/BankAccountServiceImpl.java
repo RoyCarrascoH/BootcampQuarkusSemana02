@@ -4,6 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import nttdata.bootcamp.quarkus.bankaccount.entity.BankAccount;
 import nttdata.bootcamp.quarkus.bankaccount.repository.BankAccountRepository;
+
 import java.util.List;
 
 @ApplicationScoped
@@ -36,5 +37,10 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public void delete(Long idBankAccount) {
         bankAccountRepository.deleteById(idBankAccount);
+    }
+
+    @Override
+    public BankAccount findByNumberBankAccount(String numberBankAccount) {
+        return BankAccount.find("numberAccount", numberBankAccount).firstResult();
     }
 }

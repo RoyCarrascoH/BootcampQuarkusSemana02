@@ -5,12 +5,16 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import nttdata.bootcamp.quarkus.movement.client.BankAccountClient;
 import nttdata.bootcamp.quarkus.movement.client.CreditCardClient;
 import nttdata.bootcamp.quarkus.movement.dto.MovementResponse;
+import nttdata.bootcamp.quarkus.movement.dto.MovementsByAccountNumber;
 import nttdata.bootcamp.quarkus.movement.dto.ResponseBase;
+import nttdata.bootcamp.quarkus.movement.entity.BankAccount;
 import nttdata.bootcamp.quarkus.movement.entity.CreditCardEntity;
 import nttdata.bootcamp.quarkus.movement.entity.MovementEntity;
 import nttdata.bootcamp.quarkus.movement.service.MovementService;
+import nttdata.bootcamp.quarkus.movement.util.Utility;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
@@ -26,6 +30,9 @@ public class MovementResource {
 
     @RestClient
     CreditCardClient creditCardClient;
+
+    @RestClient
+    BankAccountClient bankAccountClient;
 
     @GET
     public MovementResponse getMovements() {
@@ -63,12 +70,12 @@ public class MovementResource {
 
         if (movement.getIdTypeMovement() == 3) {
             CreditCardEntity entity = creditCardClient.viewCreditCardDetails(movement.getCreditCard().getIdCreditCard());
-            Double total = entity.getBalanceAvailable() - movement.getTotalMovement();
+            double total = entity.getBalanceAvailable() - movement.getTotalMovement();
             entity.setBalanceAvailable(total);
             creditCardClient.updateCreditCard(entity.getIdCreditCard(), entity);
         } else if (movement.getIdTypeMovement() == 2) {
             CreditCardEntity entity = creditCardClient.viewCreditCardDetails(movement.getCreditCard().getIdCreditCard());
-            Double total = entity.getBalanceAvailable() + movement.getTotalMovement();
+            double total = entity.getBalanceAvailable() + movement.getTotalMovement();
             entity.setBalanceAvailable(total);
             creditCardClient.updateCreditCard(entity.getIdCreditCard(), entity);
         }
@@ -114,10 +121,29 @@ public class MovementResource {
         entity.setLoanNumber(movement.getLoanNumber());
         entity.setCurrentBalance(movement.getCurrentBalance());
         entity.setEstateDelete(movement.getEstateDelete());
-        entity.setDebitCard(movement.getDebitCard());
-        entity.setCreditCard(movement.getCreditCard());
-        entity.setLoan(movement.getLoan());
         service.save(entity);
         return entity;
     }
+
+    @GET
+    @Path("{bankAccountNumber}")
+    public MovementsByAccountNumber findMovementsByAccountNumber(@PathParam("bankAccountNumber") String bankAccountNumber) {
+        MovementsByAccountNumber response = new MovementsByAccountNumber();
+
+        BankAccount bankAccount = bankAccountClient.viewCurrentBalanceByNumberBankAccount(bankAccountNumber);
+        //BankAccount bankAccount = service.findCurrentBalance(bankAccountNumber);
+        if (bankAccount == null) {
+            throw new WebApplicationException("bankAccountNumber : " + bankAccountNumber + " does not exist Movements.", 404);
+        }
+        response = Utility.uploadBankAccount(bankAccount, response);
+
+        List<MovementEntity> movements = service.findMovementsByAccountNumber(bankAccountNumber);
+        if (movements == null) {
+            throw new WebApplicationException("bankAccountNumber : " + bankAccountNumber + " does not exist in Movements.", 404);
+        }
+        response = Utility.uploadMovements(movements, response);
+
+        return response;
+    }
+
 }
