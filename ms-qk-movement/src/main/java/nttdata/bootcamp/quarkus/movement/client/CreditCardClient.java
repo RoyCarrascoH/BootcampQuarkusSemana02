@@ -11,10 +11,11 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @RegisterRestClient
 @Path("/api/creditcard")
 public interface CreditCardClient {
+
     @PUT
-    @Path("/{idCreditCard}")
+    @Path("{idCreditCard}")
     @Transactional
-    CreditCardEntity updateCreditCard(@PathParam("idCreditCard") Long id, CreditCardEntity creditCard);
+    CreditCardEntity updateCreditCard(@PathParam("idCreditCard") Long idCreditCard, CreditCardEntity creditCard);
 
     @GET
     @Path("{idCreditCard}")

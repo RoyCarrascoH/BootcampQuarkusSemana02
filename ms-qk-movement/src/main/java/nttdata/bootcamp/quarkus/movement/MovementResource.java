@@ -63,12 +63,12 @@ public class MovementResource {
 
         if (movement.getIdTypeMovement() == 3) {
             CreditCardEntity entity = creditCardClient.viewCreditCardDetails(movement.getCreditCard().getIdCreditCard());
-            double total = entity.getBalanceAvailable() - movement.getTotalMovement();
+            Double total = entity.getBalanceAvailable() - movement.getTotalMovement();
             entity.setBalanceAvailable(total);
             creditCardClient.updateCreditCard(entity.getIdCreditCard(), entity);
         } else if (movement.getIdTypeMovement() == 2) {
             CreditCardEntity entity = creditCardClient.viewCreditCardDetails(movement.getCreditCard().getIdCreditCard());
-            double total = entity.getBalanceAvailable() + movement.getTotalMovement();
+            Double total = entity.getBalanceAvailable() + movement.getTotalMovement();
             entity.setBalanceAvailable(total);
             creditCardClient.updateCreditCard(entity.getIdCreditCard(), entity);
         }
@@ -97,21 +97,27 @@ public class MovementResource {
     }
 
     @PUT
-    @Path("{idMovent}")
+    @Path("{idMovement}")
     @Transactional
-    public MovementEntity updateMovement(@PathParam("idMovent") Long idMovent, MovementEntity movent) {
+    public MovementEntity updateMovement(@PathParam("idMovement") Long idMovement, MovementEntity movement) {
 
-        MovementEntity entity = service.findById(idMovent);
+        MovementEntity entity = service.findById(idMovement);
         if (entity == null) {
-            throw new WebApplicationException("Movent with id of " + idMovent + " does not exist.", 404);
+            throw new WebApplicationException("Movement with id of " + idMovement + " does not exist.", 404);
         }
-        entity.setIdTypeMovement(movent.getIdTypeMovement());
-        entity.setDescriptionMovement(movent.getDescriptionMovement());
-        entity.setDateMovement(movent.getDateMovement());
-        entity.setTotalMovement(movent.getTotalMovement());
-        entity.setEstateDelete(movent.getEstateDelete());
+        entity.setIdTypeMovement(movement.getIdTypeMovement());
+        entity.setDescriptionMovement(movement.getDescriptionMovement());
+        entity.setDateMovement(movement.getDateMovement());
+        entity.setTotalMovement(movement.getTotalMovement());
+        entity.setBankAccountNumber(movement.getBankAccountNumber());
+        entity.setCreditCardNumber(movement.getCreditCardNumber());
+        entity.setLoanNumber(movement.getLoanNumber());
+        entity.setCurrentBalance(movement.getCurrentBalance());
+        entity.setEstateDelete(movement.getEstateDelete());
+        entity.setDebitCard(movement.getDebitCard());
+        entity.setCreditCard(movement.getCreditCard());
+        entity.setLoan(movement.getLoan());
         service.save(entity);
-
         return entity;
     }
 }

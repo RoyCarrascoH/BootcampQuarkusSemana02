@@ -26,18 +26,16 @@ public class DebitCard extends PanacheEntityBase {
     private Integer pin;
     private LocalDate expirationDate;
     private String validationCode;
+    private Boolean status;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)//Esta propiedad se utiliza para determinar cómo debe ser cargada la entidad
     @JoinColumn(name = "idBankAccount")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//deserializa para procesarlo
     private BankAccount bankAccount;
 
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idClient")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Client client;
-    
-    private boolean status;
 
 }

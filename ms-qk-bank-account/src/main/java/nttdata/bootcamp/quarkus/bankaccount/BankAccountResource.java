@@ -27,7 +27,7 @@ public class BankAccountResource {
     private BankAccountService service;
 
     @GET
-    @Timeout(180)
+    @Timeout(300)
     public BankAccountResponse getBankAccounts() {
         BankAccountResponse bankAccountsResponse = new BankAccountResponse();
         List<BankAccount> bankAccounts = service.listAll();

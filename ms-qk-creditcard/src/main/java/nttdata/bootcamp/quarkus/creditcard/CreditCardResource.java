@@ -95,6 +95,7 @@ public class CreditCardResource {
         entity.setExpirationDate(creditCard.getExpirationDate());
         entity.setClosingDate(creditCard.getClosingDate());
         entity.setLastOfPay(creditCard.getLastOfPay());
+        //entity.setClient(creditCard.getClient());
 
         creditCardService.save(entity);
 

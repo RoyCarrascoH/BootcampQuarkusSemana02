@@ -20,13 +20,14 @@ public class LoanEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLoan;
     private String loanNumber;
-
     private String monthlyPaymentDate;
     private String expirationDate;
-    private int quotaNumber;
+    private Integer quotaNumber;
     private String validationCode;
-    private double initialBalance;
-    private double currentBalance;
+    private Double initialBalance;
+    private Double currentBalance;
+    private Integer amountOfFeesPaid;
+    private Double quotaAmount;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idClient")

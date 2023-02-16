@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -22,11 +20,11 @@ public class CreditCardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCreditCard;
     private String descripcion;
-    private double creditLimit;
-    private double balanceAvailable;
+    private Double creditLimit;
+    private Double balanceAvailable;
     private String creditCardNumber;
-    private int cvv;
-    private LocalDate expirationDate;
+    private Integer cvv;
+    private Date expirationDate;
     private String closingDate;
     private String lastOfPay;
 

@@ -14,6 +14,7 @@ public class Utilitarios {
         entity.setExpirationDate(debitCard.getExpirationDate());
         entity.setValidationCode(debitCard.getValidationCode());
         entity.setBankAccount(debitCard.getBankAccount());
+        entity.setStatus(debitCard.getStatus());
         entity.setClient(debitCard.getClient());
         return entity;
     }

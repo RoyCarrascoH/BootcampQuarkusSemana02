@@ -95,6 +95,9 @@ public class ExampleResource {
         entity.setValidationCode(loan.getValidationCode());
         entity.setInitialBalance(loan.getInitialBalance());
         entity.setCurrentBalance(loan.getCurrentBalance());
+        entity.setAmountOfFeesPaid(loan.getAmountOfFeesPaid());
+        entity.setQuotaAmount(loan.getQuotaAmount());
+        entity.setClient(loan.getClient());
         loanService.save(entity);
         return entity;
     }

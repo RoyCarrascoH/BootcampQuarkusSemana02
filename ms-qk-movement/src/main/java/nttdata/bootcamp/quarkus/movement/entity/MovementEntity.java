@@ -19,19 +19,26 @@ public class MovementEntity extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMovement;
-    private int idTypeMovement;
+    private Integer idTypeMovement;
     private String descriptionMovement;
     private String dateMovement;
-    private double totalMovement;
-    private int estateDelete;
+    private Double totalMovement;
+    private String bankAccountNumber;
+    private String creditCardNumber;
+    private String loanNumber;
+    private Double currentBalance;
+    private Integer estateDelete;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idCreditCard")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private CreditCardEntity creditCard;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idLoan")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private LoanEntity loan;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idDebitCard")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

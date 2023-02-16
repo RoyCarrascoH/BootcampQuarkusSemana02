@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -24,14 +24,14 @@ public class DebitCard extends PanacheEntityBase {
     private Long idDebitCard;
     private String debitCardNumber;
     private Integer pin;
-    private Date expirationDate;
+    private LocalDate expirationDate;
     private String validationCode;
+    private Boolean status;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)//Esta propiedad se utiliza para determinar cómo debe ser cargada la entidad
     @JoinColumn(name = "idBankAccount")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//deserializa para procesarlo
     private BankAccount bankAccount;
-
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idClient")

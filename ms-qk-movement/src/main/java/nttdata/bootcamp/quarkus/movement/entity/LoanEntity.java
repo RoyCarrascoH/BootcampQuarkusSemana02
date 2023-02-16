@@ -1,5 +1,6 @@
 package nttdata.bootcamp.quarkus.movement.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,11 +20,17 @@ public class LoanEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLoan;
     private String loanNumber;
-
     private String monthlyPaymentDate;
     private String expirationDate;
-    private int quotaNumber;
+    private Integer quotaNumber;
     private String validationCode;
-    private double initialBalance;
-    private double currentBalance;
+    private Double initialBalance;
+    private Double currentBalance;
+    private Integer amountOfFeesPaid;
+    private Double quotaAmount;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "idClient")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Client client;
 }
