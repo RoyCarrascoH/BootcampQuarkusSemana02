@@ -61,4 +61,10 @@ public class DebitCardServiceImpl implements DebitCardService {
 		return debitCardResult!=null?debitCardResult.count()>0:false;
 	}
 
+	@Override
+	public boolean validatDebitCardAndPin(String debitCardNumber, String pin) {
+		DebitCard debitCardResult = DebitCard.find("debitCardNumber = ?1 and pin = ?2", debitCardNumber, Integer.valueOf(pin)).firstResult();
+		return debitCardResult!=null?debitCardResult.count()>0:false;
+	}
+
 }

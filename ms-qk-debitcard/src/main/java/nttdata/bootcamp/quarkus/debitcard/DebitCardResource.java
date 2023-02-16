@@ -120,7 +120,7 @@ public class DebitCardResource {
             try{
             	validationStatus= service.validateDataAndStatusDebitCard(debitCardNumber, expirationDate, validationCode);
             }catch (BadRequestException e){
-                LOGGER.infof("Error al invocar  el Microservicio bank-account" + e.getMessage());
+                LOGGER.infof("Error al invocar el Microservicio bank-account" + e.getMessage());
             }
 
         }
@@ -135,7 +135,22 @@ public class DebitCardResource {
             try{
             	validationStatus= service.validateDebitCardAndClientData(debitCardNumber, documentType, documentNumber);
             }catch (BadRequestException e){
-                LOGGER.infof("Error al invocar  el Microservicio bank-account" + e.getMessage());
+                LOGGER.infof("Error al invocar el Microservicio bank-account" + e.getMessage());
+            }
+
+        }
+        return Response.ok(validationStatus).status(200).build();
+    }
+    
+    @GET
+    @Path("/validatepin/{debitCardNumber}/{pin}")
+    public Response validateDebitCardAndPin(@PathParam("debitCardNumber") String debitCardNumber,@PathParam("pin") String pin) {
+    	boolean validationStatus = false; 
+        if(debitCardNumber!=null && pin!=null){
+            try{
+            	validationStatus= service.validatDebitCardAndPin(debitCardNumber, pin);
+            }catch (BadRequestException e){
+                LOGGER.infof("Error al invocar el Microservicio bank-account" + e.getMessage());
             }
 
         }
