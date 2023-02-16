@@ -9,4 +9,5 @@ public interface CreditCardService {
     public void save(CreditCardEntity creditCardEntity);
     public CreditCardEntity update(Long id, CreditCardEntity creditCardEntity);
     public void delete(Long id);
+    public List<CreditCardEntity> searchCreditCardByDocumentNumber(String documentNumber);
 }

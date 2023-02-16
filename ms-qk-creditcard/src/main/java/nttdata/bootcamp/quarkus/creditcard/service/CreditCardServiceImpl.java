@@ -35,4 +35,9 @@ public class CreditCardServiceImpl implements CreditCardService{
     public void delete(Long id) {
         creditCardRepository.deleteById(id);
     }
+
+	@Override
+	public List<CreditCardEntity> searchCreditCardByDocumentNumber(String documentNumber) {
+		return creditCardRepository.list("client.documentNumber", documentNumber);
+	}
 }
