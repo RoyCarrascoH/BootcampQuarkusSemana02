@@ -67,14 +67,24 @@ public class MovementResource {
 
     @POST
     @Transactional
-    public Response create(MovementEntity movement) {
+    public ResponseBase create(MovementEntity movement) {
 
+        ResponseBase response = new ResponseBase();
         if (movement.getIdTypeMovement() == 1) {//Loan --> 1.- Pago de prestamo
+
             LoanEntity entity = loanClient.viewLoanDetails(movement.getLoan().getIdLoan());
-            Double total = entity.getCurrentBalance() - movement.getTotalMovement();
-            entity.setCurrentBalance(total);
-            entity.setAmountOfFeesPaid(entity.getAmountOfFeesPaid() + 1);
-            loanClient.updateLoan(entity.getIdLoan(), entity);
+            if (movement.getTotalMovement().equals(entity.getQuotaAmount())) {
+                LOGGER.info(movement.getTotalMovement());
+                LOGGER.info(entity.getQuotaAmount());
+                Double total = entity.getCurrentBalance() - movement.getTotalMovement();
+                entity.setCurrentBalance(total);
+                entity.setAmountOfFeesPaid(entity.getAmountOfFeesPaid() + 1);
+                loanClient.updateLoan(entity.getIdLoan(), entity);
+            } else {
+                response.setCodigoRespuesta(1);
+                response.setMensajeRespuesta("Monto a pagar no es igual a monto de cuota");
+                return response;
+            }
         } else if (movement.getIdTypeMovement() == 2) {// CreditCard --> 2.- Pago tarjeta de credito
             CreditCardEntity entity = creditCardClient.viewCreditCardDetails(movement.getCreditCard().getIdCreditCard());
             Double total = entity.getBalanceAvailable() + movement.getTotalMovement();
@@ -98,7 +108,9 @@ public class MovementResource {
         }
 
         service.save(movement);
-        return Response.ok(movement).status(201).build();
+        response.setCodigoRespuesta(0);
+        response.setMensajeRespuesta("Creado con exito");
+        return response;
     }
 
     @DELETE
