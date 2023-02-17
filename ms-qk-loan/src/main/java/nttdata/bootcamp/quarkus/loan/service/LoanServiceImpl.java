@@ -43,4 +43,9 @@ public class LoanServiceImpl implements LoanService {
     public LoanEntity findByLoanNumber(String loanNumber) {
         return loanRepository.find("loanNumber", loanNumber).firstResult();
     }
+
+    @Override
+    public List<LoanEntity> findLoanByDocumentNumber(String documentNumber) {
+        return loanRepository.list("client.documentNumber", documentNumber);
+    }
 }

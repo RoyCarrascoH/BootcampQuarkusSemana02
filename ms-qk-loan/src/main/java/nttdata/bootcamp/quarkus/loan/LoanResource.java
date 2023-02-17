@@ -11,6 +11,7 @@ import nttdata.bootcamp.quarkus.loan.entity.LoanEntity;
 import nttdata.bootcamp.quarkus.loan.service.LoanService;
 import org.jboss.logging.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/api/loan")
@@ -103,11 +104,38 @@ public class LoanResource {
 
     @GET
     @Path("/loanNumber/{loanNumber}")
-    public LoanEntity viewLoanDetailsLoanNumber(@PathParam("loanNumber") String loanNumber){
+    public LoanEntity viewLoanDetailsLoanNumber(@PathParam("loanNumber") String loanNumber) {
         LoanEntity entity = loanService.findByLoanNumber(loanNumber);
         if (entity == null) {
             throw new WebApplicationException("Loan with " + loanNumber + " does not exist.", 404);
         }
         return entity;
     }
+
+    @GET
+    @Path("/documentNumber/{documentNumber}")
+    public LoanResponse findLoanByDocumentNumber(@PathParam("documentNumber") String documentNumber) {
+        LoanResponse response = new LoanResponse();
+        List<LoanEntity> listResult = new ArrayList<>();
+        if (documentNumber != null) {
+            try {
+                listResult = loanService.findLoanByDocumentNumber(documentNumber);
+                if (listResult != null && listResult.size() > 0) {
+                    response.setLoan(listResult);
+                    response.setCodigoRespuesta(0);
+                    response.setMensajeRespuesta("Respuesta exitosa");
+                } else {
+                    response.setCodigoRespuesta(1);
+                    response.setMensajeRespuesta("No existe prestamo con ese numero de documento");
+                }
+            } catch (BadRequestException e) {
+                response.setCodigoRespuesta(-1);
+                response.setMensajeRespuesta("Error al invocar el Microservicio ms-loan");
+                LOGGER.infof("Error al invocar el Microservicio ms-loan" + e.getMessage());
+            }
+
+        }
+        return response;
+    }
+
 }

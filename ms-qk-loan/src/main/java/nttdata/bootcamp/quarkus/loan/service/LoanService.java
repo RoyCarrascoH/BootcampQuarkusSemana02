@@ -17,4 +17,6 @@ public interface LoanService {
     public void delete(Long id);
 
     public LoanEntity findByLoanNumber(String loanNumber);
+
+    public List<LoanEntity> findLoanByDocumentNumber(String documentNumber);
 }
