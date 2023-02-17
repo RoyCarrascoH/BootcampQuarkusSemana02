@@ -15,4 +15,6 @@ public interface LoanService {
     public LoanEntity update(Long id, LoanEntity client);
 
     public void delete(Long id);
+
+    public LoanEntity findByLoanNumber(String loanNumber);
 }

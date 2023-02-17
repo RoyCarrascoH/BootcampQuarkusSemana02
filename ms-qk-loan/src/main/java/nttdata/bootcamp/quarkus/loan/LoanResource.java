@@ -75,7 +75,6 @@ public class LoanResource {
             response.setMensajeRespuesta("Eliminacion exitosa de loan id = " + idLoan);
             loanService.delete(idLoan);
         }
-
         return response;
     }
 
@@ -97,8 +96,18 @@ public class LoanResource {
         entity.setCurrentBalance(loan.getCurrentBalance());
         entity.setAmountOfFeesPaid(loan.getAmountOfFeesPaid());
         entity.setQuotaAmount(loan.getQuotaAmount());
-        entity.setClient(loan.getClient());
+        //entity.setClient(loan.getClient());
         loanService.save(entity);
+        return entity;
+    }
+
+    @GET
+    @Path("/loanNumber/{loanNumber}")
+    public LoanEntity viewLoanDetailsLoanNumber(@PathParam("loanNumber") String loanNumber){
+        LoanEntity entity = loanService.findByLoanNumber(loanNumber);
+        if (entity == null) {
+            throw new WebApplicationException("Loan with " + loanNumber + " does not exist.", 404);
+        }
         return entity;
     }
 }

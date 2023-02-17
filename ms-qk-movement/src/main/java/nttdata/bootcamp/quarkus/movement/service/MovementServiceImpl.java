@@ -47,4 +47,10 @@ public class MovementServiceImpl implements MovementService {
         return response;
     }
 
+    @Override
+    public List<MovementEntity> findMovementsByLoanNumber(String loanNumber) {
+        List<MovementEntity> response = MovementEntity.find("loanNumber", loanNumber).list();
+        return response;
+    }
+
 }

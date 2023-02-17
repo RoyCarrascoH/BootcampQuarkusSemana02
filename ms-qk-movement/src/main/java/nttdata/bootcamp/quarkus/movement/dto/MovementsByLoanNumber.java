@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class MovementsByLoanNumber extends ResponseBase {
 
-    private BankAccount bankAccount;
+    private Loan loan;
     private List<Movement> movements;
 }

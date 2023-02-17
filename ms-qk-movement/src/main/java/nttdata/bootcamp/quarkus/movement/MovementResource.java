@@ -8,11 +8,9 @@ import jakarta.ws.rs.core.Response;
 import nttdata.bootcamp.quarkus.movement.client.BankAccountClient;
 import nttdata.bootcamp.quarkus.movement.client.CreditCardClient;
 import nttdata.bootcamp.quarkus.movement.client.LoanClient;
-import nttdata.bootcamp.quarkus.movement.dto.MovementResponse;
-import nttdata.bootcamp.quarkus.movement.dto.MovementsByAccountNumber;
-import nttdata.bootcamp.quarkus.movement.dto.MovementsByCreditCardNumber;
-import nttdata.bootcamp.quarkus.movement.dto.ResponseBase;
+import nttdata.bootcamp.quarkus.movement.dto.*;
 import nttdata.bootcamp.quarkus.movement.entity.*;
+import nttdata.bootcamp.quarkus.movement.entity.BankAccount;
 import nttdata.bootcamp.quarkus.movement.service.MovementService;
 import nttdata.bootcamp.quarkus.movement.util.Utility;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -75,6 +73,7 @@ public class MovementResource {
             LoanEntity entity = loanClient.viewLoanDetails(movement.getLoan().getIdLoan());
             Double total = entity.getCurrentBalance() - movement.getTotalMovement();
             entity.setCurrentBalance(total);
+            entity.setAmountOfFeesPaid(entity.getAmountOfFeesPaid() + 1);
             loanClient.updateLoan(entity.getIdLoan(), entity);
         } else if (movement.getIdTypeMovement() == 2) {// CreditCard --> 2.- Pago tarjeta de credito
             CreditCardEntity entity = creditCardClient.viewCreditCardDetails(movement.getCreditCard().getIdCreditCard());
@@ -196,6 +195,36 @@ public class MovementResource {
             return response;
         }
         response = Utility.uploadMovementsCreditCard(movements, response);
+        response.setCodigoRespuesta(0);
+        response.setMensajeRespuesta("Consulta Exitosa");
+
+        return response;
+    }
+
+    @GET
+    @Path("/findMovementsByLoanNumber/{loanNumber}")
+    public MovementsByLoanNumber findMovementsByLoanNumber(@PathParam("loanNumber") String loanNumber) {
+
+        MovementsByLoanNumber response = new MovementsByLoanNumber();
+        LoanEntity loan = loanClient.viewLoanDetailsLoanNumber(loanNumber);
+        if (loan == null) {
+            response.setCodigoRespuesta(-1);
+            response.setMensajeRespuesta("Préstamo no existe");
+            throw new WebApplicationException("loanNumber : " + loanNumber + " does not exist Movements.", 404);
+        }
+        response = Utility.uploadLoan(loan, response);
+
+        List<MovementEntity> movements = service.findMovementsByLoanNumber(loanNumber);
+        if (movements == null) {
+            response.setCodigoRespuesta(-1);
+            response.setMensajeRespuesta("Consulta sin movimientos");
+            throw new WebApplicationException("loanNumber : " + loanNumber + " does not exist in Movements.", 404);
+        } else if (movements.size() == 0) {
+            response.setCodigoRespuesta(1);
+            response.setMensajeRespuesta("Consulta no tiene movimientos");
+            return response;
+        }
+        response = Utility.uploadMovementsLoan(movements, response);
         response.setCodigoRespuesta(0);
         response.setMensajeRespuesta("Consulta Exitosa");
 

@@ -19,4 +19,6 @@ public interface MovementService {
 
     public List<MovementEntity> findMovementsByCreditCardNumber(String creditCardNumber);
 
+    public List<MovementEntity> findMovementsByLoanNumber(String loanNumber);
+
 }

@@ -2,12 +2,10 @@ package nttdata.bootcamp.quarkus.movement.util;
 
 
 import jakarta.enterprise.context.ApplicationScoped;
-import nttdata.bootcamp.quarkus.movement.dto.CreditCard;
-import nttdata.bootcamp.quarkus.movement.dto.Movement;
-import nttdata.bootcamp.quarkus.movement.dto.MovementsByAccountNumber;
-import nttdata.bootcamp.quarkus.movement.dto.MovementsByCreditCardNumber;
+import nttdata.bootcamp.quarkus.movement.dto.*;
 import nttdata.bootcamp.quarkus.movement.entity.BankAccount;
 import nttdata.bootcamp.quarkus.movement.entity.CreditCardEntity;
+import nttdata.bootcamp.quarkus.movement.entity.LoanEntity;
 import nttdata.bootcamp.quarkus.movement.entity.MovementEntity;
 
 import java.util.ArrayList;
@@ -52,6 +50,33 @@ public class Utility {
     }
 
     public static MovementsByCreditCardNumber uploadMovementsCreditCard(List<MovementEntity> entity, MovementsByCreditCardNumber response) {
+
+        List<Movement> movements = new ArrayList<>();
+        for (MovementEntity valor : entity) {
+            Movement movement = new Movement();
+            movement.setMovementDate(valor.getDateMovement());
+            movement.setMovementDescription(valor.getDescriptionMovement());
+            movement.setAmount(valor.getTotalMovement());
+            movements.add(movement);
+        }
+        response.setMovements(movements);
+        return response;
+    }
+
+    public static MovementsByLoanNumber uploadLoan(LoanEntity entity, MovementsByLoanNumber response) {
+
+        Loan loan = new Loan();
+        loan.setLoanNumber(entity.getLoanNumber());
+        loan.setAmountPaid(entity.getInitialBalance() - entity.getCurrentBalance());
+        loan.setCurrentBalance(entity.getCurrentBalance());
+        loan.setInitialBalance(entity.getInitialBalance());
+        loan.setNumberQuotaPaid(entity.getAmountOfFeesPaid());
+        loan.setNumberQuotaPendient(entity.getQuotaNumber() - entity.getAmountOfFeesPaid());
+        response.setLoan(loan);
+        return response;
+    }
+
+    public static MovementsByLoanNumber uploadMovementsLoan(List<MovementEntity> entity, MovementsByLoanNumber response) {
 
         List<Movement> movements = new ArrayList<>();
         for (MovementEntity valor : entity) {

@@ -38,4 +38,9 @@ public class LoanServiceImpl implements LoanService {
     public void delete(Long id) {
         loanRepository.deleteById(id);
     }
+
+    @Override
+    public LoanEntity findByLoanNumber(String loanNumber) {
+        return loanRepository.find("loanNumber", loanNumber).firstResult();
+    }
 }
