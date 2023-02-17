@@ -10,4 +10,6 @@ public interface CreditCardService {
     public CreditCardEntity update(Long id, CreditCardEntity creditCardEntity);
     public void delete(Long id);
     public List<CreditCardEntity> searchCreditCardByDocumentNumber(String documentNumber);
+
+    public CreditCardEntity findByNumberCreditCard(String creditCardNumber);
 }

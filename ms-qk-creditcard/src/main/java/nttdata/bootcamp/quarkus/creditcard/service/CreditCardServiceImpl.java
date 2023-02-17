@@ -6,10 +6,12 @@ import nttdata.bootcamp.quarkus.creditcard.entity.CreditCardEntity;
 import nttdata.bootcamp.quarkus.creditcard.repository.CreditCardRepository;
 
 import java.util.List;
+
 @ApplicationScoped
-public class CreditCardServiceImpl implements CreditCardService{
+public class CreditCardServiceImpl implements CreditCardService {
     @Inject
     CreditCardRepository creditCardRepository;
+
     @Override
     public List<CreditCardEntity> listAll() {
         return creditCardRepository.listAll();
@@ -22,7 +24,7 @@ public class CreditCardServiceImpl implements CreditCardService{
 
     @Override
     public void save(CreditCardEntity creditCardEntity) {
-            creditCardRepository.persist(creditCardEntity);
+        creditCardRepository.persist(creditCardEntity);
     }
 
     @Override
@@ -36,8 +38,13 @@ public class CreditCardServiceImpl implements CreditCardService{
         creditCardRepository.deleteById(id);
     }
 
-	@Override
-	public List<CreditCardEntity> searchCreditCardByDocumentNumber(String documentNumber) {
-		return creditCardRepository.list("client.documentNumber", documentNumber);
-	}
+    @Override
+    public List<CreditCardEntity> searchCreditCardByDocumentNumber(String documentNumber) {
+        return creditCardRepository.list("client.documentNumber", documentNumber);
+    }
+
+    @Override
+    public CreditCardEntity findByNumberCreditCard(String creditCardNumber) {
+        return creditCardRepository.find("creditCardNumber", creditCardNumber).firstResult();
+    }
 }

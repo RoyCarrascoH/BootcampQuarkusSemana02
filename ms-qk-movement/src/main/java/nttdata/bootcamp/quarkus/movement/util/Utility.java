@@ -2,9 +2,12 @@ package nttdata.bootcamp.quarkus.movement.util;
 
 
 import jakarta.enterprise.context.ApplicationScoped;
+import nttdata.bootcamp.quarkus.movement.dto.CreditCard;
 import nttdata.bootcamp.quarkus.movement.dto.Movement;
 import nttdata.bootcamp.quarkus.movement.dto.MovementsByAccountNumber;
+import nttdata.bootcamp.quarkus.movement.dto.MovementsByCreditCardNumber;
 import nttdata.bootcamp.quarkus.movement.entity.BankAccount;
+import nttdata.bootcamp.quarkus.movement.entity.CreditCardEntity;
 import nttdata.bootcamp.quarkus.movement.entity.MovementEntity;
 
 import java.util.ArrayList;
@@ -22,7 +25,33 @@ public class Utility {
         return response;
     }
 
-    public static MovementsByAccountNumber uploadMovements(List<MovementEntity> entity, MovementsByAccountNumber response) {
+    public static MovementsByAccountNumber uploadMovementsBankAccount(List<MovementEntity> entity, MovementsByAccountNumber response) {
+
+        List<Movement> movements = new ArrayList<>();
+        for (MovementEntity valor : entity) {
+            Movement movement = new Movement();
+            movement.setMovementDate(valor.getDateMovement());
+            movement.setMovementDescription(valor.getDescriptionMovement());
+            movement.setAmount(valor.getTotalMovement());
+            movements.add(movement);
+        }
+        response.setMovements(movements);
+        return response;
+    }
+
+    public static MovementsByCreditCardNumber uploadCreditCard(CreditCardEntity entity, MovementsByCreditCardNumber response) {
+
+        CreditCard creditCard = new CreditCard();
+        creditCard.setCreditCardNumber(entity.getCreditCardNumber());
+        creditCard.setCreditLimit(entity.getCreditLimit());
+        creditCard.setBalanceAvailable(entity.getBalanceAvailable());
+        creditCard.setUsedCredit(entity.getCreditLimit() - entity.getBalanceAvailable());
+        creditCard.setClosingDate(entity.getClosingDate());
+        response.setCreditCard(creditCard);
+        return response;
+    }
+
+    public static MovementsByCreditCardNumber uploadMovementsCreditCard(List<MovementEntity> entity, MovementsByCreditCardNumber response) {
 
         List<Movement> movements = new ArrayList<>();
         for (MovementEntity valor : entity) {

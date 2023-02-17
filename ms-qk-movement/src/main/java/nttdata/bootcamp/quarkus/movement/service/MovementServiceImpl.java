@@ -36,18 +36,14 @@ public class MovementServiceImpl implements MovementService {
     }
 
     @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
-    }
-
-    /*@Override
-    public BankAccount findCurrentBalance(String bankAccountNumber) {
-        return BankAccount.find("debitCard.bankAccount.numberAccount", bankAccountNumber).firstResult();
-    }*/
-
-    @Override
     public List<MovementEntity> findMovementsByAccountNumber(String bankAccountNumber) {
         List<MovementEntity> response = MovementEntity.find("bankAccountNumber", bankAccountNumber).list();
+        return response;
+    }
+
+    @Override
+    public List<MovementEntity> findMovementsByCreditCardNumber(String creditCardNumber) {
+        List<MovementEntity> response = MovementEntity.find("creditCardNumber", creditCardNumber).list();
         return response;
     }
 

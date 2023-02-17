@@ -10,6 +10,7 @@ import nttdata.bootcamp.quarkus.movement.client.CreditCardClient;
 import nttdata.bootcamp.quarkus.movement.client.LoanClient;
 import nttdata.bootcamp.quarkus.movement.dto.MovementResponse;
 import nttdata.bootcamp.quarkus.movement.dto.MovementsByAccountNumber;
+import nttdata.bootcamp.quarkus.movement.dto.MovementsByCreditCardNumber;
 import nttdata.bootcamp.quarkus.movement.dto.ResponseBase;
 import nttdata.bootcamp.quarkus.movement.entity.*;
 import nttdata.bootcamp.quarkus.movement.service.MovementService;
@@ -114,9 +115,8 @@ public class MovementResource {
         } else {
             response.setCodigoRespuesta(0);
             response.setMensajeRespuesta("Eliminacion exitosa de movement id = " + idMovement);
-            MovementEntity.update("estateDelete", 1);
+            MovementEntity.update("estateDelete =?1 where idMovement =?2", 1, entity.getIdMovement());
         }
-
         return response;
     }
 
@@ -148,7 +148,6 @@ public class MovementResource {
         MovementsByAccountNumber response = new MovementsByAccountNumber();
 
         BankAccount bankAccount = bankAccountClient.viewBankAccountDetailsNumberBankAccount(bankAccountNumber);
-        //BankAccount bankAccount = service.findCurrentBalance(bankAccountNumber);
         if (bankAccount == null) {
             response.setCodigoRespuesta(-1);
             response.setMensajeRespuesta("Cuentas bancarias es nulo");
@@ -161,12 +160,42 @@ public class MovementResource {
             response.setCodigoRespuesta(-1);
             response.setMensajeRespuesta("Consulta sin movimientos");
             throw new WebApplicationException("bankAccountNumber : " + bankAccountNumber + " does not exist in Movements.", 404);
-        } else if(movements.size() == 0){
+        } else if (movements.size() == 0) {
             response.setCodigoRespuesta(1);
             response.setMensajeRespuesta("Consulta no tiene movimientos");
             return response;
         }
-        response = Utility.uploadMovements(movements, response);
+        response = Utility.uploadMovementsBankAccount(movements, response);
+        response.setCodigoRespuesta(0);
+        response.setMensajeRespuesta("Consulta Exitosa");
+
+        return response;
+    }
+
+    @GET
+    @Path("/findMovementsByCreditCardNumber/{creditCardNumber}")
+    public MovementsByCreditCardNumber findMovementsByCreditCardNumber(@PathParam("creditCardNumber") String creditCardNumber) {
+        MovementsByCreditCardNumber response = new MovementsByCreditCardNumber();
+
+        CreditCardEntity creditCard = creditCardClient.viewCreditCardDetailsCreditCardNumber(creditCardNumber);
+        if (creditCard == null) {
+            response.setCodigoRespuesta(-1);
+            response.setMensajeRespuesta("Tarjeta de credito es nulo");
+            throw new WebApplicationException("creditCardNumber : " + creditCardNumber + " does not exist Movements.", 404);
+        }
+        response = Utility.uploadCreditCard(creditCard, response);
+
+        List<MovementEntity> movements = service.findMovementsByCreditCardNumber(creditCardNumber);
+        if (movements == null) {
+            response.setCodigoRespuesta(-1);
+            response.setMensajeRespuesta("Consulta sin movimientos");
+            throw new WebApplicationException("creditCardNumber : " + creditCardNumber + " does not exist in Movements.", 404);
+        } else if (movements.size() == 0) {
+            response.setCodigoRespuesta(1);
+            response.setMensajeRespuesta("Consulta no tiene movimientos");
+            return response;
+        }
+        response = Utility.uploadMovementsCreditCard(movements, response);
         response.setCodigoRespuesta(0);
         response.setMensajeRespuesta("Consulta Exitosa");
 

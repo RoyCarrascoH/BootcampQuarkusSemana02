@@ -101,13 +101,23 @@ public class CreditCardResource {
 
         return entity;
     }
-    
+
     @GET
     @Path("/listcredit/{documentNumber}")
     public List<CreditCardEntity> listCreditCardByDocumentNumber(@PathParam("documentNumber") String documentNumber) {
-    	if(documentNumber!=null && documentNumber!="") {
-    		return creditCardService.searchCreditCardByDocumentNumber(documentNumber); 
-    	}
+        if (documentNumber != null && documentNumber != "") {
+            return creditCardService.searchCreditCardByDocumentNumber(documentNumber);
+        }
         throw new WebApplicationException("Credit Card does not exist.", 404);
+    }
+
+    @GET
+    @Path("/creditCardNumber/{creditCardNumber}")
+    public CreditCardEntity viewCreditCardDetailsCreditCardNumber(@PathParam("creditCardNumber") String creditCardNumber) {
+        CreditCardEntity entity = creditCardService.findByNumberCreditCard(creditCardNumber);
+        if (entity == null) {
+            throw new WebApplicationException("CreditCard with " + creditCardNumber + " does not exist.", 404);
+        }
+        return entity;
     }
 }

@@ -15,9 +15,8 @@ public interface MovementService {
 
     public MovementEntity update(Long id, MovementEntity movement);
 
-    public void delete(Long id);
-
-    //public BankAccount findCurrentBalance(String bankAccountNumber);
-
     public List<MovementEntity> findMovementsByAccountNumber(String bankAccountNumber);
+
+    public List<MovementEntity> findMovementsByCreditCardNumber(String creditCardNumber);
+
 }

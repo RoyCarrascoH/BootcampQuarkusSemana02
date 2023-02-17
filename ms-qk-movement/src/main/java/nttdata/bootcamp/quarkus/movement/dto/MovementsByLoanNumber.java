@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Movement {
+public class MovementsByLoanNumber extends ResponseBase {
 
-    private String movementDate;
-    private String movementDescription;
-    private Double amount;
-
+    private BankAccount bankAccount;
+    private List<Movement> movements;
 }

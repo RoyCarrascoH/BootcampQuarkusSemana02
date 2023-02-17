@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Movement {
+public class MovementsByCreditCardNumber extends ResponseBase {
 
-    private String movementDate;
-    private String movementDescription;
-    private Double amount;
-
+    private CreditCard creditCard;
+    private List<Movement> movements;
 }
