@@ -71,11 +71,8 @@ public class MovementResource {
 
         ResponseBase response = new ResponseBase();
         if (movement.getIdTypeMovement() == 1) {//Loan --> 1.- Pago de prestamo
-
             LoanEntity entity = loanClient.viewLoanDetails(movement.getLoan().getIdLoan());
             if (movement.getTotalMovement().equals(entity.getQuotaAmount())) {
-                LOGGER.info(movement.getTotalMovement());
-                LOGGER.info(entity.getQuotaAmount());
                 Double total = entity.getCurrentBalance() - movement.getTotalMovement();
                 entity.setCurrentBalance(total);
                 entity.setAmountOfFeesPaid(entity.getAmountOfFeesPaid() + 1);
