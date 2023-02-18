@@ -117,7 +117,7 @@ public class DebitCardResource {
     @GET
     @Path("/validate/{debitCardNumber}/{expirationDate}/{validationCode}")
     public Response validateDataAndStatusDebitCard(@PathParam("debitCardNumber") String debitCardNumber,@PathParam("expirationDate") String expirationDate,@PathParam("validationCode") String validationCode) {
-    	boolean validationStatus = false; 
+    	boolean validationStatus = false;
         if(debitCardNumber!=null && expirationDate!=null && validationCode!=null){
             try{
             	validationStatus= service.validateDataAndStatusDebitCard(debitCardNumber, expirationDate, validationCode);

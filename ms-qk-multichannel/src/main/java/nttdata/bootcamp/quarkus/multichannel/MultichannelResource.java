@@ -1,5 +1,6 @@
 package nttdata.bootcamp.quarkus.multichannel;
 
+import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
@@ -30,9 +31,9 @@ public class MultichannelResource {
     }
 
     @POST
+//  @Blocking
     public Uni<Multichannel> create(Multichannel multichannel){
-    	multichannelService.saveMultichannel(multichannel);
-    	return Uni.createFrom().item(multichannel);
+    	return multichannelService.saveMultichannel(multichannel);
     }
     
     @PUT
@@ -50,8 +51,7 @@ public class MultichannelResource {
     @GET
     @Path("/listproduct/{clientDocumentNumber}")
     public Uni<Response> listAllProductsByClient(@PathParam("clientDocumentNumber") String clientDocumentNumber) {
-        multichannelService.listAllProductsByClient(clientDocumentNumber);
-        return Uni.createFrom().item(null); 
+         return Uni.createFrom().item(null);
     }
     
     @GET
