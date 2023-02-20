@@ -8,10 +8,8 @@ public interface AuditService {
 
     public Multi<Audit> streamAllPosts();
 
-    public Uni<Audit> saveAudit(Audit audit);
+    public Uni<Audit> updateAudit(String idAudit, Audit audit);
 
-    public Uni<Audit> updateAudit(Audit audit);
-
-    public Uni<Audit> deleteAudit(Audit audit);
+    public Uni<Void> deleteAudit(String idAudit);
 
 }

@@ -1,5 +1,7 @@
 package nttdata.bootcamp.quarkus.audit.util;
 
+import java.time.LocalDate;
+
 /**
  * Class Constants.
  * Client microservice class Constants.

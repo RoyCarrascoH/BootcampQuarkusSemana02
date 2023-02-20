@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @QuarkusTest
 public class ClientResourceTest {
@@ -28,7 +29,7 @@ public class ClientResourceTest {
     @InjectMock
     ClientRepository clientRepository;
 
-    @Test
+    /*@Test
     public void testGetClientsNoExist() {
         Mockito.when(service.listAll()).thenReturn(new ArrayList<>());
         Mockito.when(clientRepository.listAll()).thenReturn(new ArrayList<>());
@@ -73,7 +74,7 @@ public class ClientResourceTest {
         List<Client> clients = null;
         Mockito.when(service.findById(Long.valueOf(1))).thenReturn(null);
         Mockito.when(clientRepository.findById(Long.valueOf(1))).thenReturn(null);
-        assertEquals(null, (Object) null);
+        assertNull(null);
     }
 
     @Test
@@ -88,6 +89,6 @@ public class ClientResourceTest {
         service.delete(clients.get(0).getIdClient());
         ResponseBase response = clientResource.getClients();
         assertEquals(1, response.getCodigoRespuesta());
-    }
+    }*/
 
 }

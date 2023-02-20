@@ -4,7 +4,8 @@ import io.quarkus.mongodb.panache.common.MongoEntity;
 import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoEntityBase;
 import lombok.*;
 import org.bson.codecs.pojo.annotations.BsonId;
-import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 
@@ -13,15 +14,16 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 @MongoEntity(collection = "audit")
 public class Audit extends ReactivePanacheMongoEntityBase {
 
+    @BsonProperty("_id")
     @BsonId
-    public Long idAudit;
+    private ObjectId idAudit;
     private String idTransaccion;
     private String user;
-    @BsonIgnore
-    public LocalDate registrationDate;
+    private LocalDate registrationDate;
     private String request;
     private String response;
     private Integer codigoRespuesta;

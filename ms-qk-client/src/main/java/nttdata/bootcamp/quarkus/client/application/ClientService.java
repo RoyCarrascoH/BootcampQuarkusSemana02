@@ -6,14 +6,14 @@ import java.util.List;
 public interface ClientService
 {
 
-    public List<Client> listAll();
+    List<Client> listAll();
 
-    public Client findById(Long id);
+    Client findById(Long id);
 
-    public void save(Client client);
+    void save(Client client);
 
-    public Client update(Long id, Client client);
+    Client update(Long id, Client client);
 
-    public void delete(Long id);
+    void delete(Long id);
 
 }
