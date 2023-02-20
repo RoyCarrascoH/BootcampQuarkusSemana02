@@ -1,17 +1,23 @@
 package nttdata.bootcamp.quarkus.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.smallrye.common.annotation.Blocking;
+import io.smallrye.common.annotation.NonBlocking;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import nttdata.bootcamp.quarkus.client.application.ClientService;
+import nttdata.bootcamp.quarkus.client.dto.Audit;
 import nttdata.bootcamp.quarkus.client.dto.ClientResponse;
 import nttdata.bootcamp.quarkus.client.dto.ResponseBase;
 import nttdata.bootcamp.quarkus.client.entity.Client;
+import nttdata.bootcamp.quarkus.client.proxy.AuditClient;
 import nttdata.bootcamp.quarkus.client.util.Utilitarios;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
 import java.util.List;
@@ -26,21 +32,23 @@ public class ClientResource {
     @Inject
     private ClientService service;
 
+    @RestClient
+    public AuditClient auditClient;
+
     @GET
     @Timeout(250)
     public ClientResponse getClients() {
         ClientResponse clientsResponse = new ClientResponse();
         List<Client> clients = service.listAll();
-        if(clients==null){
+        if (clients == null) {
             clientsResponse.setCodigoRespuesta(2);
             clientsResponse.setMensajeRespuesta("Respuesta nula");
             clientsResponse.setClients(null);
-        }
-        else if(clients.size()==0){
+        } else if (clients.size() == 0) {
             clientsResponse.setCodigoRespuesta(1);
             clientsResponse.setMensajeRespuesta("No existen clientes");
             clientsResponse.setClients(clients);
-        }else{
+        } else {
             clientsResponse.setCodigoRespuesta(0);
             clientsResponse.setMensajeRespuesta("Respuesta Exitosa");
             clientsResponse.setClients(clients);
@@ -61,11 +69,24 @@ public class ClientResource {
 
     @POST
     @Transactional
-    public Response create(Client client) {
+    public Response create(@HeaderParam("idTransaccion") String idTransaccion,
+                           @HeaderParam("user") String user, Client client) throws JsonProcessingException {
+
+        Audit audit = null;
+        System.out.println("AQUI LLEGO 0");
+
         if (client.getIdClient() != null) {
+            System.out.println("AQUI LLEGO 2");
+            audit = Utilitarios.saveAudit(idTransaccion, user, client, -1, "No se puede registrar cliente", "");
+            auditClient.create(audit);
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
         service.save(client);
+        System.out.println("AQUI LLEGO 3");
+        audit = Utilitarios.saveAudit(idTransaccion, user, client, 0, "Registro exitoso", Response.ok(client).status(201).build().toString());
+        System.out.println("AQUI LLEGO 4");
+        auditClient.create(audit);
+        System.out.println("AQUI LLEGO 5");
         return Response.ok(client).status(201).build();
     }
 
@@ -82,7 +103,7 @@ public class ClientResource {
         }
 
         entity = Utilitarios.saveClient(entity, client);
-        service.update(idClient,entity);
+        service.update(idClient, entity);
         return entity;
     }
 
