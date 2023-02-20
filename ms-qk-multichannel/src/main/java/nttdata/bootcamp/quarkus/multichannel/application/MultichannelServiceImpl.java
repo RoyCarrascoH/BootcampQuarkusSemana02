@@ -2,6 +2,7 @@ package nttdata.bootcamp.quarkus.multichannel.application;
 
 import java.time.format.DateTimeFormatter;
 
+import org.bson.Document;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import io.smallrye.mutiny.Multi;
@@ -28,17 +29,19 @@ public class MultichannelServiceImpl implements MultichannelService {
 
 	@Override
 	public Uni<Multichannel> saveMultichannel(Multichannel multichannel) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
 		String formattedExpirationDate = multichannel.getExpirationDate().format(formatter);
 		try {
 			Response response1=debitCardApi.validateDataAndStatusDebitCard(multichannel.getDebitCardNumber(), formattedExpirationDate, multichannel.getValidationCode());
 			if(response1.readEntity(Boolean.class)) {
+				System.out.println("entreeee1");
 				Response response2=debitCardApi.validateDebitCardAndClientData(multichannel.getDebitCardNumber(), multichannel.getDocumentType(), multichannel.getDocumentNumber());
 				if(response2.readEntity(Boolean.class)) {
+					System.out.println("entreeee2");
 					Response response3=debitCardApi.validateDebitCardAndPin(multichannel.getDebitCardNumber(), multichannel.getPin().toString());
 					if(response3.readEntity(Boolean.class)){
-						Multichannel.persist(multichannel);
-						return Uni.createFrom().item(multichannel);
+						System.out.println("entreeee3");
+						return multichannel.persist();
 					}
 				}
 			}

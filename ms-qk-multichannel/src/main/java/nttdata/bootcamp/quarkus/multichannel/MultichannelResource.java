@@ -4,6 +4,7 @@ import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -31,7 +32,8 @@ public class MultichannelResource {
     }
 
     @POST
-//  @Blocking
+    @Blocking
+    @Transactional
     public Uni<Multichannel> create(Multichannel multichannel){
     	return multichannelService.saveMultichannel(multichannel);
     }

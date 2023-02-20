@@ -7,17 +7,19 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import nttdata.bootcamp.quarkus.multichannel.entity.CreditCardEntity;
+
 
 @RegisterRestClient
 @Path("/api/creditcard")
 public interface CreditCardApi {
-	/*
-	@GET
+	
+    @GET
     @Path("/listcredit/{documentNumber}")
     public List<CreditCardEntity> listCreditCardByDocumentNumber(@PathParam("documentNumber") String documentNumber);
-	
-	@GET
+     
+
+    @GET
     @Path("/creditCardNumber/{creditCardNumber}")
     public CreditCardEntity viewCreditCardDetailsCreditCardNumber(@PathParam("creditCardNumber") String creditCardNumber);
-*/
 }
