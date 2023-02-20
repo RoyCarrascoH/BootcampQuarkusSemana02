@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "b1846e22-a307-4aec-8e81-6f6661ffa233",
+		"_postman_id": "f78616e4-6d81-438e-8a62-bc7556e6011c",
 		"name": "BOOTCAMP QUARKUS",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "7929714"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -258,12 +257,26 @@
 					"name": "buscar clientes",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "idTransaccion",
+								"value": "2325344242343",
+								"type": "text"
+							},
+							{
+								"key": "user",
+								"value": "RoyCarrasco",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:1112/api/clients",
+							"raw": "http://127.0.0.1:1112/api/clients",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"127",
+								"0",
+								"0",
+								"1"
 							],
 							"port": "1112",
 							"path": [
@@ -584,6 +597,99 @@
 							"path": [
 								"api",
 								"debit-card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validarDebitoDataAndStatus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1111/api/debit-card/validate/2133252414234327/02082028/1245743",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1111",
+							"path": [
+								"api",
+								"debit-card",
+								"validate",
+								"2133252414234327",
+								"02082028",
+								"1245743"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validarDebitoClienteData",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1111/api/debit-card/validateclient/2133252414234327/DNI/71629568",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1111",
+							"path": [
+								"api",
+								"debit-card",
+								"validateclient",
+								"2133252414234327",
+								"DNI",
+								"71629568"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validarDebitoPin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1111/api/debit-card/validatepin/2133252414234327/1111",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1111",
+							"path": [
+								"api",
+								"debit-card",
+								"validatepin",
+								"2133252414234327",
+								"1111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchListDebitCardByDocumentNumber",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1111/api/debit-card/searchlist/71629568",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1111",
+							"path": [
+								"api",
+								"debit-card",
+								"searchlist",
+								"71629568"
 							]
 						}
 					},
@@ -1305,6 +1411,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "listCreditByDocumentNumber",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:1114/api/creditcard/listcredit/71629568",
+							"host": [
+								"localhost"
+							],
+							"port": "1114",
+							"path": [
+								"api",
+								"creditcard",
+								"listcredit",
+								"71629568"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1312,7 +1439,117 @@
 			"name": "MS-QK-MULTICHANNEL",
 			"item": [
 				{
-					"name": "buscarMulticanal",
+					"name": "buscarMultichannelid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1117/api/multichannel/11111",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1117",
+							"path": [
+								"api",
+								"multichannel",
+								"11111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarMultichannel",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1117/api/multichannel/11111",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1117",
+							"path": [
+								"api",
+								"multichannel",
+								"11111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarMultichannel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"debitCardNumber\": \"2133252414234327\",\r\n    \"expirationDate\": \"2028-02-08\",\r\n    \"validationCode\": \"124574\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": \"71629568\",\r\n    \"passwordMultichannel\": \"1235\",\r\n    \"pin\": \"1111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1117/api/multichannel/11111",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1117",
+							"path": [
+								"api",
+								"multichannel",
+								"11111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarMultichannel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"debitCardNumber\": \"2133252414234327\",\r\n    \"expirationDate\": \"2028-02-08\",\r\n    \"validationCode\": \"124574\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": \"71629568\",\r\n    \"passwordMultichannel\": \"123\",\r\n    \"pin\": \"1111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1117/api/multichannel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1117",
+							"path": [
+								"api",
+								"multichannel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AllMultichannel",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -1330,116 +1567,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "buscar cliente por id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:1112/api/clients/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "1112",
-							"path": [
-								"api",
-								"clients",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "guardarCliente",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"personType\": \"NATURAL\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": \"71629568\",\r\n    \"completeName\": \"Roy Adoniss\",\r\n    \"surnames\": \"Carrasco Huamana\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"carrasco@gmail.com\",\r\n    \"cellPhone\": \"986794668\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:1112/api/clients",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "1112",
-							"path": [
-								"api",
-								"clients"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "eliminar cliente por id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:1112/api/clients/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "1112",
-							"path": [
-								"api",
-								"clients",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "actualizarCliente",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"personType\": \"NATURAL\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": \"71629569\",\r\n    \"completeName\": \"Adonis Roy\",\r\n    \"surnames\": \"Huaman Carrasco\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"carrasco28adonis12@gmail.com\",\r\n    \"cellPhone\": \"986794668\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:1112/api/clients/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "1112",
-							"path": [
-								"api",
-								"clients",
-								"1"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -1452,36 +1579,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1112/api/clients",
+							"raw": "http://localhost:1118/api/audit",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "1112",
+							"port": "1118",
 							"path": [
 								"api",
-								"clients"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "buscar auditoria por id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:1112/api/clients/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "1112",
-							"path": [
-								"api",
-								"clients",
-								"1"
+								"audit"
 							]
 						}
 					},
@@ -1494,7 +1600,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"personType\": \"NATURAL\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": \"71629568\",\r\n    \"completeName\": \"Roy Adonis\",\r\n    \"surnames\": \"Carrasco Huaman\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"carrasco@gmail.com\",\r\n    \"cellPhone\": \"986794668\"\r\n}",
+							"raw": "{\r\n    \"idTransaccion\": \"123223121\",\r\n    \"user\": \"Roy Adonis\",\r\n    \"request\": \"requestttttttttttttttttttttttttttttttttt225\",\r\n    \"response\": \"responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee225\",\r\n    \"codigoRespuesta\": 0,\r\n    \"mensajeRespuesta\": \"Operacion exitosa\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1502,15 +1608,18 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:1112/api/clients",
+							"raw": "http://0.0.0.0:1118/api/audit",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"0",
+								"0",
+								"0",
+								"0"
 							],
-							"port": "1112",
+							"port": "1118",
 							"path": [
 								"api",
-								"clients"
+								"audit"
 							]
 						}
 					},
@@ -1531,16 +1640,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:1112/api/clients/1",
+							"raw": "http://localhost:1118/api/audit/63f3bb609123c47ad9a1a7f9",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "1112",
+							"port": "1118",
 							"path": [
 								"api",
-								"clients",
-								"1"
+								"audit",
+								"63f3bb609123c47ad9a1a7f9"
 							]
 						}
 					},
@@ -1553,7 +1662,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"personType\": \"NATURAL\",\r\n    \"documentType\": \"DNI\",\r\n    \"documentNumber\": \"71629568\",\r\n    \"completeName\": \"Roy Adonis\",\r\n    \"surnames\": \"Huaman Carrasco\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"carrasco28adonis12@gmail.com\",\r\n    \"cellPhone\": \"986794668\"\r\n}",
+							"raw": "{\r\n    \"idTransaccion\": \"12322312\",\r\n    \"user\": \"Roy Adonis\",\r\n    \"request\": \"requesttttttttttttttttttttttttttttttttttaaabbb\",\r\n    \"response\": \"responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeaaaabbb\",\r\n    \"codigoRespuesta\": 0,\r\n    \"mensajeRespuesta\": \"Operacion exitosa\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1561,16 +1670,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:1112/api/clients/1",
+							"raw": "http://localhost:1118/api/audit/63f3bb609123c47ad9a1a7f9",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "1112",
+							"port": "1118",
 							"path": [
 								"api",
-								"clients",
-								"1"
+								"audit",
+								"63f3bb609123c47ad9a1a7f9"
 							]
 						}
 					},
