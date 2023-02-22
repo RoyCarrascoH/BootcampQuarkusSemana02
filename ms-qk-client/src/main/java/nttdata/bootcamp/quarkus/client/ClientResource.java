@@ -73,20 +73,15 @@ public class ClientResource {
                            @HeaderParam("user") String user, Client client) throws JsonProcessingException {
 
         Audit audit = null;
-        System.out.println("AQUI LLEGO 0");
 
         if (client.getIdClient() != null) {
-            System.out.println("AQUI LLEGO 2");
             audit = Utilitarios.saveAudit(idTransaccion, user, client, -1, "No se puede registrar cliente", "");
             auditClient.create(audit);
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
         service.save(client);
-        System.out.println("AQUI LLEGO 3");
         audit = Utilitarios.saveAudit(idTransaccion, user, client, 0, "Registro exitoso", Response.ok(client).status(201).build().toString());
-        System.out.println("AQUI LLEGO 4");
         auditClient.create(audit);
-        System.out.println("AQUI LLEGO 5");
         return Response.ok(client).status(201).build();
     }
 

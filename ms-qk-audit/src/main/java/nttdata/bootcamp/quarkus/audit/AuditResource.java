@@ -28,22 +28,13 @@ public class AuditResource {
         return auditService.streamAllPosts();
     }
 
-    /*@POST
+    @POST
     @Transactional
     public Uni<Response> create(Audit audit) {
-        System.out.println("AQUI LLEGO");
         audit.setRegistrationDate(LocalDate.now());
         return audit.<Audit>persist().map(v ->
                 Response.created(URI.create("/api/audit/" + v.getIdAudit()))
                         .entity(audit).build());
-    }*/
-
-    @POST
-    @Transactional
-    public Response create(Audit audit) {
-        System.out.println("AQUI LLEGO");
-        audit.setRegistrationDate(LocalDate.now());
-        return Response.ok(audit).build();
     }
 
     @PUT
